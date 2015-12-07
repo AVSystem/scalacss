@@ -8,6 +8,9 @@ object Css {
   def prepareKeyframes(styles: TraversableOnce[Keyframes])(implicit env: Env): Stream[CssKeyframesAnimation] =
     styles.toStream map keyframes
 
+  def prepareFontFaces(styles: TraversableOnce[FontFace])(implicit env: Env): Stream[CssFontFace] =
+    styles.toStream map fontFaces
+
   def className(cn: ClassName): CssSelector =
     "." + cn.value
 
@@ -20,9 +23,11 @@ object Css {
   def mediaQuery(c: Cond): CssMediaQueryO =
     NonEmptyVector.option(c.mediaQueries) map Media.css
 
-  def keyframes(frames: Keyframes)(implicit env: Env): CssKeyframesAnimation = {
+  def keyframes(frames: Keyframes)(implicit env: Env): CssKeyframesAnimation =
     CssKeyframesAnimation(frames.name, frames.frames.map(s => (s._1, styleA(s._2))).toMap)
-  }
+
+  def fontFaces(ff: FontFace)(implicit env: Env): CssFontFace =
+    CssFontFace(ff.fontFamily, ff.src, ff.fontStretch, ff.fontStyle, ff.fontWeight, ff.unicodeRange)
 
   def styleA(s: StyleA)(implicit env: Env): Stream[CssStyleEntry] =
     style(className(s.className), s.style)
@@ -53,14 +58,16 @@ object Css {
   type ValuesByMediaQuery = NonEmptyVector[(CssSelector, NonEmptyVector[CssKV])]
   type ByMediaQuery       = Map[CssMediaQueryO, ValuesByMediaQuery]
 
-  def findStylesAndAnimations(c: Css): (Stream[CssStyleEntry], Stream[CssKeyframesAnimation]) = {
+  def findStylesAndAnimationsAndFontFaces(c: Css): (Stream[CssStyleEntry], Stream[CssKeyframesAnimation], Stream[CssFontFace]) = {
     val styles = Stream.newBuilder[CssStyleEntry]
     val animations = Stream.newBuilder[CssKeyframesAnimation]
+    val fontFaces = Stream.newBuilder[CssFontFace]
     c.foreach {
       case e: CssStyleEntry => styles += e
       case e: CssKeyframesAnimation => animations += e
+      case e: CssFontFace => fontFaces += e
     }
-    (styles.result(), animations.result())
+    (styles.result(), animations.result(), fontFaces.result())
   }
 
   def mapByMediaQuery(c: Stream[CssStyleEntry]): ByMediaQuery = {

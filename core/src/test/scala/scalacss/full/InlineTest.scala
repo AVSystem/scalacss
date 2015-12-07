@@ -2,6 +2,7 @@ package scalacss.full
 
 import scala.concurrent.duration._
 import scalacss.Defaults._
+import scalacss.UnicodeRange
 
 //object CopyDefaultsForInline extends Defaults
 //import CopyDefaultsForInline._
@@ -174,8 +175,15 @@ object MyInlineWithKeyframes extends StyleSheet.Inline {
   )
 }
 
+object MyInlineWithFontFace extends StyleSheet.Inline {
+  val ff = fontFace("myFont", "url(font.woff)", "expanded", "italic", "bold", UnicodeRange(0, 5))
+  val ff2 = fontFace("myFont2", "url(font2.woff)", "expanded", "italic", "200", UnicodeRange(0, 1114111))
+  val ff3 = fontFace("myFont3", Seq("local(HelveticaNeue)", "url(font2.woff)"), "expanded", "italic", "200", UnicodeRange(0, 1114111))
+}
+
 object InlineTest extends utest.TestSuite {
   import utest._
+
   import scalacss.TestUtil._
 
   def norm(css: String) = css.trim
@@ -458,5 +466,34 @@ object InlineTest extends utest.TestSuite {
        |  width: 30px;
        |}
      """.stripMargin))
+
+    'fontFaces - assertEq(norm(MyInlineWithFontFace.render), norm("""
+         |@font-face {
+         |  font-family: "myFont";
+         |  src: url(font.woff);
+         |  font-stretch: expanded;
+         |  font-style: italic;
+         |  font-weight: bold;
+         |  unicode-range: U+0-5;
+         |}
+         |
+         |@font-face {
+         |  font-family: "myFont2";
+         |  src: url(font2.woff);
+         |  font-stretch: expanded;
+         |  font-style: italic;
+         |  font-weight: 200;
+         |  unicode-range: U+0-10ffff;
+         |}
+         |
+         |@font-face {
+         |  font-family: "myFont3";
+         |  src: local(HelveticaNeue), url(font2.woff);
+         |  font-stretch: expanded;
+         |  font-style: italic;
+         |  font-weight: 200;
+         |  unicode-range: U+0-10ffff;
+         |}
+       """.stripMargin))
   }
 }
