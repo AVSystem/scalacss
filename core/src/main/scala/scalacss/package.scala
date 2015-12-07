@@ -132,7 +132,7 @@ package object scalacss {
     val htmlClass: String =
       (className.value /: addClassNames)(_ + " " + _.value)
 
-    def +(s : StyleA)(implicit c: Compose): StyleA = StyleA(className, addClassNames ++ s.addClassNames, style.compose(s.style))
+    def +(s : StyleA)(implicit c: Compose): StyleA = StyleA(className, Vector(s.className) ++ addClassNames ++ s.addClassNames, style.compose(s.style))
   }
 
   /** Faster than Vector(a) */
