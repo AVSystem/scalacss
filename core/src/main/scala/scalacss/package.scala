@@ -1,6 +1,6 @@
 import scalaz.Equal
-import scalaz.std.stream.streamEqual
 import scalaz.std.option.optionEqual
+import scalaz.std.stream.streamEqual
 
 package object scalacss {
   private[this] implicit def stringEqual: Equal[String] = Equal.equalA
@@ -11,6 +11,10 @@ package object scalacss {
   type Value = String
 
   private[scalacss] final val _important = " !important"
+
+  case class UnicodeRange(from: Int, to: Int) {
+    override def toString: String = s"U+${"%x" format from}-${"%x" format to}"
+  }
 
   final case class ClassName(value: String)
   implicit def classNameEquality: Equal[ClassName] = Equal.equalA
@@ -56,6 +60,7 @@ package object scalacss {
                            content: NonEmptyVector[CssKV]) extends CssEntry
   case class CssKeyframesAnimation(name: KeyframeAnimationName,
                                    frames: Map[KeyframeAnimationSelector, Stream[CssStyleEntry]]) extends CssEntry
+  case class CssFontFace(fontFamily: String, src: Seq[String], fontStretch: Value, fontStyle: Value, fontWeight: Value, unicodeRange: UnicodeRange) extends CssEntry
 
   object CssStyleEntry {
     implicit val equality: Equal[CssStyleEntry] = {
@@ -87,6 +92,18 @@ package object scalacss {
     }
   }
 
+  object CssFontFace {
+    implicit val equality: Equal[CssFontFace] = {
+      val A = Equal[String]
+      new Equal[CssFontFace] {
+        override val equalIsNatural =
+          A.equalIsNatural
+        override def equal(a: CssFontFace, b: CssFontFace): Boolean =
+          A.equal(a.fontFamily, b.fontFamily)
+      }
+    }
+  }
+
   /**
    * A stylesheet in its entirety. Normally turned into a `.css` file or a `&lt;style&gt;` tag.
    */
@@ -95,6 +112,7 @@ package object scalacss {
     override def equal(a1: CssEntry, a2: CssEntry): Boolean = { (a1, a2) match {
       case (a: CssStyleEntry, b: CssStyleEntry) => CssStyleEntry.equality.equal(a, b)
       case (a: CssKeyframesAnimation, b: CssKeyframesAnimation) => CssKeyframesAnimation.equality.equal(a, b)
+      case (a: CssFontFace, b: CssFontFace) => CssFontFace.equality.equal(a, b)
       case _ => false
     }}})
 
@@ -133,4 +151,11 @@ package object scalacss {
     * @param frames Seq of frame definitions
     */
   final case class Keyframes(name: KeyframeAnimationName, frames: Seq[(KeyframeAnimationSelector, StyleA)])
+
+  /**
+    * Font face declaration
+    *
+    * http://www.w3schools.com/cssref/css3_pr_font-face_rule.asp
+    */
+  final case class FontFace(fontFamily: String, src: Seq[String], fontStretch: Value, fontStyle: Value, fontWeight: Value, unicodeRange: UnicodeRange)
 }

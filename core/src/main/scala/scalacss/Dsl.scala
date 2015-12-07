@@ -252,6 +252,13 @@ object DslMacros {
     def apply(frames: (Percentage[Int], StyleA)*): Keyframes
   }
 
+  trait MFontFace {
+    def apply(fontFamily: String, src: String, fontStretch: Value, fontStyle: Value, fontWeight: Value, unicodeRange: UnicodeRange): FontFace =
+      apply(fontFamily, Seq(src), fontStretch, fontStyle, fontWeight, unicodeRange)
+
+    def apply(fontFamily: String, src: Seq[String], fontStretch: Value, fontStyle: Value, fontWeight: Value, unicodeRange: UnicodeRange): FontFace
+  }
+
   val defaultStyleFClassNameSuffix: (Any, Int) => String =
     (_, index) => (index + 1).toString
 

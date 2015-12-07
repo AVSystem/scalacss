@@ -20,10 +20,16 @@ object StringRenderer {
       val sb = new StringBuilder
       val fmt = format(sb)
 
-      val grouped = Css.findStylesAndAnimations(css)
-      grouped._2.foreach(fmt(_))
+      val (styles, keyframes, fontFaces) = Css.groupedByType(css)
 
-      val m = Css.mapByMediaQuery(grouped._1)             // Group by MQ
+      //Font faces
+      fontFaces.foreach(fmt(_))
+
+      //Key frames
+      keyframes.foreach(fmt(_))
+
+      //Styles
+      val m = Css.mapByMediaQuery(styles)             // Group by MQ
       m.foreach(t => if (t._1.isEmpty)   fmt(None, t._2)) // CSS without MQs first
       m.foreach(t => if (t._1.isDefined) fmt(t._1, t._2)) // CSS with MQs last
       fmt.done()
@@ -59,6 +65,7 @@ object StringRenderer {
                       mqEnd   : CssMediaQuery                 => Unit,
                       kfsEnd  : KeyframeAnimationSelector     => Unit,
                       kfEnd   : KeyframeAnimationName         => Unit,
+                      ff      : (CssFontFace)                 => Unit,
                       done    : ()                            => Unit) {
 
     def apply(mq: CssMediaQueryO, data: Css.ValuesByMediaQuery): Unit = {
@@ -81,6 +88,8 @@ object StringRenderer {
           kfsEnd(frame._1)
         }
         kfEnd(e.name)
+      case e: CssFontFace =>
+        ff(e)
     }}
 
     def apply(mq: CssMediaQueryO, sel: CssSelector, kvs: NonEmptyVector[CssKV]): Unit = {
@@ -115,6 +124,15 @@ object StringRenderer {
       _      => sb append '}',
       _      => { sb append '}' },
       _      => { sb append '}' },
+      ff     => {
+        sb append s"""@font-face {font-family:"${ff.fontFamily}";src:"""
+        for ((s, i) <- ff.src.zipWithIndex) {
+          if (i == ff.src.size-1) sb append s
+          else sb append s"""$s,"""
+        }
+
+        sb append s"""font-stretch:${ff.fontStretch};font-style:${ff.fontStyle};font-weight:${ff.fontWeight};}unicode-range:${ff.unicodeRange};} """
+      },
       ()     => ())
   }
 
@@ -155,6 +173,23 @@ object StringRenderer {
       _ => sb append "}\n\n",
       _ => { sb append s"$indent}\n\n" },
       _ => { sb append "}\n\n" },
+      ff     => {
+        sb append s"""@font-face {
+                      |  font-family: "${ff.fontFamily}";
+                      |  src: """.stripMargin
+
+        for ((s, i) <- ff.src.zipWithIndex) {
+          if (i == ff.src.size-1) sb append s
+          else sb append s"$s, "
+        }
+
+        sb append s""";
+                      |  font-stretch: ${ff.fontStretch};
+                      |  font-style: ${ff.fontStyle};
+                      |  font-weight: ${ff.fontWeight};
+                      |  unicode-range: ${ff.unicodeRange};
+                      |}\n\n""".stripMargin
+      },
       () => ())
   }
 

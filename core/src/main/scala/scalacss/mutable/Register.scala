@@ -20,6 +20,7 @@ final class Register(initNameGen: NameGen, macroName: MacroName, errHandler: Err
   var _nameGen  = initNameGen
   var _styles   = Vector.empty[StyleA]
   var _keyframes = Vector.empty[Keyframes]
+  var _fontFaces = Vector.empty[FontFace]
   var _rendered = false
 
   private def nextName(implicit cnh: ClassNameHint): ClassName =
@@ -137,13 +138,21 @@ final class Register(initNameGen: NameGen, macroName: MacroName, errHandler: Err
     kf
   }
 
+  def registerFontFace(fontFace: FontFace)(implicit cnh: ClassNameHint): FontFace = {
+    if (_fontFaces.exists(_.fontFamily.equalsIgnoreCase(fontFace.fontFamily))) {
+      throw new RuntimeException(s"Duplicated fontface name! (${fontFace.fontFamily})")
+    }
+    _fontFaces :+= fontFace
+    fontFace
+  }
+
   def styles: Vector[StyleA] = mutex {
     _rendered = true
     _styles
   }
 
   def css(implicit env: Env): Css = {
-    Css.prepareStyles(styles) ++ Css.prepareKeyframes(_keyframes)
+    Css.prepareStyles(styles) ++ Css.prepareKeyframes(_keyframes) ++ Css.prepareFontFaces(_fontFaces)
   }
 
   def render[Out](implicit r: Renderer[Out], env: Env): Out =

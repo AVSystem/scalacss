@@ -2,9 +2,10 @@ package scalacss.mutable
 
 import shapeless.HList
 import shapeless.ops.hlist.Mapper
+
+import scalacss.DslBase.{DslCond, ToStyle}
+import scalacss.StyleC.MkUsage
 import scalacss._
-import DslBase.{DslCond, ToStyle}
-import StyleC.MkUsage
 
 /**
  * Mutable StyleSheets provide a context in which many styles can be created using a DSL.
@@ -127,7 +128,6 @@ object StyleSheet {
    *   - All style types ([[StyleS]], [[StyleF]], [[StyleC]]) are usable.
    */
   abstract class Inline(protected implicit val register: Register) extends Base with Macros.DslMixin {
-    import dsl._
 
             final protected type Domain[A] = scalacss.Domain[A]
     @inline final protected def  Domain    = scalacss.Domain
@@ -136,6 +136,7 @@ object StyleSheet {
     override protected def __macroStyleF(name: String) = new MStyleF(name)
     override protected def __macroKeyframes(name: String) = new MKeyframes(name)
     override protected def __macroKeyframeStyle = new MKStyle
+    override protected def __macroFontFace = new MFontFace
 
     protected class MStyle(name: String) extends DslMacros.MStyle {
       override def apply(t: ToStyle*)(implicit c: Compose): StyleA = {
@@ -169,6 +170,12 @@ object StyleSheet {
 
       override def apply(className: String)(t: ToStyle*)(implicit c: Compose): StyleA =
         apply(t:_*)
+    }
+
+    protected class MFontFace extends DslMacros.MFontFace {
+      override def apply(fontFamily: String, src: Seq[String], fontStretch: Value, fontStyle: Value, fontWeight: Value, unicodeRange: UnicodeRange): FontFace = {
+        register.registerFontFace(FontFace(fontFamily, src, fontStretch, fontStyle, fontWeight, unicodeRange))
+      }
     }
 
     protected def styleC[M <: HList](s: StyleC)(implicit m: Mapper.Aux[register._registerC.type, s.S, M], u: MkUsage[M]): u.Out =
