@@ -20,16 +20,16 @@ object StringRenderer {
       val sb = new StringBuilder
       val fmt = format(sb)
 
-      val grouped = Css.findStylesAndAnimationsAndFontFaces(css)
+      val (styles, keyframes, fontFaces) = Css.groupedByType(css)
 
       //Font faces
-      grouped._3.foreach(fmt(_))
+      fontFaces.foreach(fmt(_))
 
       //Key frames
-      grouped._2.foreach(fmt(_))
+      keyframes.foreach(fmt(_))
 
       //Styles
-      val m = Css.mapByMediaQuery(grouped._1)             // Group by MQ
+      val m = Css.mapByMediaQuery(styles)             // Group by MQ
       m.foreach(t => if (t._1.isEmpty)   fmt(None, t._2)) // CSS without MQs first
       m.foreach(t => if (t._1.isDefined) fmt(t._1, t._2)) // CSS with MQs last
       fmt.done()

@@ -58,7 +58,7 @@ object Css {
   type ValuesByMediaQuery = NonEmptyVector[(CssSelector, NonEmptyVector[CssKV])]
   type ByMediaQuery       = Map[CssMediaQueryO, ValuesByMediaQuery]
 
-  def findStylesAndAnimationsAndFontFaces(c: Css): (Stream[CssStyleEntry], Stream[CssKeyframesAnimation], Stream[CssFontFace]) = {
+  def groupedByType(c: Css): (Stream[CssStyleEntry], Stream[CssKeyframesAnimation], Stream[CssFontFace]) = {
     val styles = Stream.newBuilder[CssStyleEntry]
     val animations = Stream.newBuilder[CssKeyframesAnimation]
     val fontFaces = Stream.newBuilder[CssFontFace]
