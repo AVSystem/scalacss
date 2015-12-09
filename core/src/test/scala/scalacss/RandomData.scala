@@ -56,7 +56,7 @@ object RandomData {
     }
 
   def unsafeExt(g: Gen[StyleS]): Gen[UnsafeExt] =
-    Gen.apply2(UnsafeExt)(unsafeCssSelEndo, g)
+    Gen.apply3(UnsafeExt)(unsafeCssSelEndo, Gen insert Cond.empty, g)
 
   def unsafeExts(o: Option[Gen[StyleS]]): Gen[UnsafeExts] =
     o.fold[Gen[UnsafeExts]](Gen insert Vector.empty)(g =>
