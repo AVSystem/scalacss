@@ -233,6 +233,12 @@ object MyInlineComplexCond extends StyleSheet.Inline {
             margin(10 px)
           )
         )
+      ),
+
+      &.attr("some-attribute", "true") (
+        &.after (
+          padding(5 px)
+        )
       )
     )
 }
@@ -553,7 +559,11 @@ object InlineTest extends utest.TestSuite {
        """.stripMargin))
 
     'complexCond - assertEq(norm(MyInlineComplexCond.render), norm(
-      """.manual:hover {
+      """.manual[some-attribute="true"]::after {
+        |  padding: 5px;
+        |}
+        |
+        |.manual:hover {
         |  cursor: -webkit-zoom-in;
         |  cursor: -moz-zoom-in;
         |  cursor: -o-zoom-in;
@@ -614,5 +624,3 @@ object InlineTest extends utest.TestSuite {
       """.stripMargin))
   }
 }
-
-
