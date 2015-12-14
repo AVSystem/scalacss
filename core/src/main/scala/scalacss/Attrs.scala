@@ -2986,7 +2986,9 @@ object Attrs {
     *
     * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/flood-color">MDN</a>
     */
-  final val floodColor = Attr.real("flood-color")
+  object floodColor extends TypedAttr_Color {
+    override val attr = Attr.real("flood-color")
+  }
 
   /**
     * The flood-opacity attribute indicates the opacity value to use across the current filter primitive subregion defined through the <feflood> element.
