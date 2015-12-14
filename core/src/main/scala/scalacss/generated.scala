@@ -24,6 +24,12 @@ abstract class AttrAliasesAndValueTRules extends ValueT.Rules {
    */
   @inline final def alignSelf = Attrs.alignSelf
   /**
+    * The alignment-baseline attribute specifies how an object is aligned with respect to its parent.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/alignment-baseline">MDN</a>
+    */
+  @inline final def alignmentBaseline = Attrs.alignmentBaseline
+  /**
    * The CSS all shorthand property resets all properties, but unicode-bidi and direction to their initial or inherited value.
    *
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/all">MDN</a>
@@ -149,6 +155,12 @@ abstract class AttrAliasesAndValueTRules extends ValueT.Rules {
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-size">MDN</a>
    */
   @inline final def backgroundSize = Attrs.backgroundSize
+  /**
+    * The baseline-shift attribute allows repositioning of the dominant-baseline relative to the dominant-baseline of the parent text content element.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/baseline-shift">MDN</a>
+    */
+  @inline final def baselineShift = Attrs.baselineShift
   /**
    * The block-size CSS property defines the horizontal or vertical size of an element's block depending on it's writing mode. It corresponds to the width or the height property depending on the value defined for writing-mode.
    *
@@ -524,12 +536,45 @@ abstract class AttrAliasesAndValueTRules extends ValueT.Rules {
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path">MDN</a>
    */
   @inline final def clipPath = Attrs.clipPath
+  /*
+      SVG Attributes
+   */
+  /**
+    * The clip-rule attribute only applies to graphics elements that are contained within a <clippath> element. The clip-rule attribute basically works as the fill-rule attribute, except that it applies to <clippath> definitions.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/clip-rule">MDN</a>
+    */
+  @inline final def clipRule = Attrs.clipRule
   /**
    * The CSS color property sets the foreground color of an element's text content, and its decorations. It doesn't affect any other characteristic of the element; it should really be called text-color and would have been named so, save for historical reasons and its appearance in CSS Level 1.
    *
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color">MDN</a>
    */
   @inline final def color = Attrs.color
+  /**
+    * The color-interpolation attribute specifies the color space for gradient interpolations, color animations, and alpha compositing.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-interpolation">MDN</a>
+    */
+  @inline final def colorInterpolation = Attrs.colorInterpolation
+  /**
+    * The color-interpolation-filters attribute specifies the color space for imaging operations performed via filter effects.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-interpolation-filters">MDN</a>
+    */
+  @inline final def colorInterpolationFilters = Attrs.colorInterpolationFilters
+  /**
+    * The color-profile attribute is used to define which color profile a raster image included through the <image> element should use.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-profile">MDN</a>
+    */
+  @inline final def colorProfile = Attrs.colorProfile
+  /**
+    * The color-rendering attribute provides a hint to the SVG user agent about how to optimize its color interpolation and compositing operations.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-rendering">MDN</a>
+    */
+  @inline final def colorRendering = Attrs.colorRendering
   /**
    * The column-count CSS property describes the number of columns of the element.
    *
@@ -627,11 +672,42 @@ abstract class AttrAliasesAndValueTRules extends ValueT.Rules {
    */
   @inline final def display = Attrs.display
   /**
+    * The dominant-baseline attribute is used to determine or re-determine a scaled-baseline-table.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/dominant-baseline">MDN</a>
+    */
+  @inline final def dominantBaseline = Attrs.dominantBaseline
+  /**
    * The empty-cells CSS property specifies how user agents should render borders and backgrounds around cells that have no visible content.
    *
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/empty-cells">MDN</a>
    */
   @inline final def emptyCells = Attrs.emptyCells
+  /**
+    * The enable-background is only applicable to container elements and specifies how the SVG user agents manages the accumulation of the background image.
+    *
+    * @see <a href="http://www.w3.org/TR/SVG/filters.html#EnableBackgroundProperty">w3.org</a>
+    */
+  @inline final def enableBackground = Attrs.enableBackground
+  /**
+    * The fill attribute can be used to maintain the value of an animation after the active duration of an animation element ends.
+    * For shapes and text, the fill attribute is a presentation attribute that define the color of the interior of the given graphical element.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill">MDN</a>
+    */
+  @inline final def fill = Attrs.fill
+  /**
+    * This attribute specifies the opacity of the color or the content the current object is filled with.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-opacity">MDN</a>
+    */
+  @inline final def fillOpacity = Attrs.fillOpacity
+  /**
+    * The fill-rule attribute indicates the algorithm which is to be used to determine what side of a path is inside the shape.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule">MDN</a>
+    */
+  @inline final def fillRule = Attrs.fillRule
   /**
    * The CSS filter property provides for effects like blurring or color shifting on an element’s rendering before the element is displayed. Filters are commonly used to adjust the rendering of an image, a background, or a border.
    *
@@ -686,6 +762,18 @@ abstract class AttrAliasesAndValueTRules extends ValueT.Rules {
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float">MDN</a>
    */
   @inline final def float = Attrs.float
+  /**
+    * The flood-color attribute indicates what color to use to flood the current filter primitive subregion defined through the <feflood> element. The keyword currentColor and ICC colors can be specified in the same manner as within a <paint> specification for the fill and stroke attributes.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/flood-color">MDN</a>
+    */
+  @inline final def floodColor = Attrs.floodColor
+  /**
+    * The flood-opacity attribute indicates the opacity value to use across the current filter primitive subregion defined through the <feflood> element.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/flood-opacity">MDN</a>
+    */
+  @inline final def floodOpacity = Attrs.floodOpacity
   /**
    * Flows content from a named flow (specified by a corresponding flow-into) through selected elements to form a dynamic chain of layout regions.
    *
@@ -800,6 +888,18 @@ abstract class AttrAliasesAndValueTRules extends ValueT.Rules {
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight">MDN</a>
    */
   @inline final def fontWeight = Attrs.fontWeight
+  /**
+    * This property is applied only to text written in a horizontal ‘writing-mode’.
+    *
+    * @see <a href="http://www.w3.org/TR/SVG/text.html#GlyphOrientationHorizontalProperty">w3.org</a>
+    */
+  @inline final def glyphOrientationHorizontal = Attrs.glyphOrientationHorizontal
+  /**
+    * This property is applied only to text written in a vertical ‘writing-mode’.
+    *
+    * @see <a href="http://www.w3.org/TR/SVG/text.html#GlyphOrientationVerticalProperty">w3.org</a>
+    */
+  @inline final def glyphOrientationVertical = Attrs.glyphOrientationVertical
   /**
    * @see <a href="http://www.w3.org/TR/css3-grid-layout/#grid-shorthand">css3-grid-layout#grid</a>
    */
@@ -941,6 +1041,12 @@ abstract class AttrAliasesAndValueTRules extends ValueT.Rules {
    */
   @inline final def justifyContent = Attrs.justifyContent
   /**
+    * The kerning attribute indicates whether the browser should adjust inter-glyph spacing based on kerning tables
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/kerning">MDN</a>
+    */
+  @inline final def kerning = Attrs.kerning
+  /**
    * The left CSS property specifies part of the position of positioned elements.
    *
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/left">MDN</a>
@@ -952,6 +1058,12 @@ abstract class AttrAliasesAndValueTRules extends ValueT.Rules {
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing">MDN</a>
    */
   @inline final def letterSpacing = Attrs.letterSpacing
+  /**
+    * The lighting-color attribute defines the color of the light source for filter primitives elements <fediffuselighting> and <fespecularlighting>.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/lighting-color">MDN</a>
+    */
+  @inline final def lightingColor = Attrs.lightingColor
   /**
    * The line-break CSS property is used to specify how (or if) to break lines.
    *
@@ -1042,6 +1154,24 @@ abstract class AttrAliasesAndValueTRules extends ValueT.Rules {
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin-top">MDN</a>
    */
   @inline final def marginTop = Attrs.marginTop
+  /**
+    * The marker-end defines the arrowhead or polymarker that will be drawn at the final vertex of the given <path> element or basic shape.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/marker-end">MDN</a>
+    */
+  @inline final def markerEnd = Attrs.markerEnd
+  /**
+    * The marker-mid defines the arrowhead or polymarker that shall be drawn at every vertex other than the first and last vertex of the given <path> element or basic shape.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/marker-mid">MDN</a>
+    */
+  @inline final def markerMid = Attrs.markerMid
+  /**
+    * The marker-start attribute defines the arrowhead or polymarker that will be drawn at the first vertex of the given <path> element or basic shape.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/marker-start">MDN</a>
+    */
+  @inline final def markerStart = Attrs.markerStart
   /**
    * The marks CSS property adds crop and/or cross marks to the presentation of the document. Crop marks indicate where the page should be cut. Cross marks are used to align sheets.
    *
@@ -1385,6 +1515,72 @@ abstract class AttrAliasesAndValueTRules extends ValueT.Rules {
    */
   @inline final def shapeOutside = Attrs.shapeOutside
   /**
+    * The creator of SVG content might want to provide a hint about what tradeoffs to make as the browser renders <path> element or basic shapes. The shape-rendering attribute provides these hints.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering">MDN</a>
+    */
+  @inline final def shapeRendering = Attrs.shapeRendering
+  /**
+    * The stop-color attribute indicates what color to use at that gradient stop. The keyword currentColor and ICC colors can be specified in the same manner as within a <paint> specification for the fill and stroke attributes.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stop-color">MDN</a>
+    */
+  @inline final def stopColor = Attrs.stopColor
+  /**
+    * The stop-opacity attribute defines the opacity of a given gradient stop.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stop-opacity">MDN</a>
+    */
+  @inline final def stopOpacity = Attrs.stopOpacity
+  /**
+    * The stroke attribute defines the color of the outline on a given graphical element. The default value for the stroke attribute is none.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke">MDN</a>
+    */
+  @inline final def stroke = Attrs.stroke
+  /**
+    * The stroke-dasharray attribute controls the pattern of dashes and gaps used to stroke paths.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray">MDN</a>
+    */
+  @inline final def strokeDashArray = Attrs.strokeDashArray
+  /**
+    * The stroke-dashoffset attribute specifies the distance into the dash pattern to start the dash.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dashoffset">MDN</a>
+    */
+  @inline final def strokeDashOffset = Attrs.strokeDashOffset
+  /**
+    * The stroke-linecap attribute specifies the shape to be used at the end of open subpaths when they are stroked.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap">MDN</a>
+    */
+  @inline final def strokeLineCap = Attrs.strokeLineCap
+  /**
+    * The stroke-linejoin attribute specifies the shape to be used at the corners of paths or basic shapes when they are stroked.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linejoin">MDN</a>
+    */
+  @inline final def strokeLineJoin = Attrs.strokeLineJoin
+  /**
+    * The stroke-miterlimit imposes a limit on the ratio of the miter length to the stroke-width.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-miterlimit">MDN</a>
+    */
+  @inline final def strokeMiterLimit = Attrs.strokeMiterLimit
+  /**
+    * The stroke-opacity attribute specifies the opacity of the outline on the current object. Its default value is 1.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-opacity">MDN</a>
+    */
+  @inline final def strokeOpacity = Attrs.strokeOpacity
+  /**
+    * The stroke-width attribute specifies the width of the outline on the current object.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-width">MDN</a>
+    */
+  @inline final def strokeWidth = Attrs.strokeWidth
+  /**
    * The tab-size CSS property is used to customize the width of a tab (U+0009) character.
    *
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/tab-size">MDN</a>
@@ -1408,6 +1604,12 @@ abstract class AttrAliasesAndValueTRules extends ValueT.Rules {
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-align-last">MDN</a>
    */
   @inline final def textAlignLast = Attrs.textAlignLast
+  /**
+    * The text-anchor attribute is used to align (start-, middle- or end-alignment) a string of text relative to a given point.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor">MDN</a>
+    */
+  @inline final def textAnchor = Attrs.textAnchor
   /**
    * The documentation about this has not yet been written; please consider contributing!
    *
