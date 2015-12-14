@@ -45,7 +45,11 @@ object Attrs {
     transitionDuration, transitionProperty, transitionTimingFunction, unicodeRange, verticalAlign, visibility,
     whiteSpace, widows, width, willChange, wordBreak, wordSpacing, wordWrap, writingMode, zIndex,
     boxReflect, flowFrom, flowInto, regionFragment, textSizeAdjust, textStroke, textStrokeColor, textStrokeWidth,
-    textEmphasis, textEmphasisColor, textEmphasisPosition, textEmphasisStyle, userSelect)
+    textEmphasis, textEmphasisColor, textEmphasisPosition, textEmphasisStyle, userSelect, clipRule, enableBackground,
+    floodColor, floodOpacity, lightingColor, stopColor, stopOpacity, colorInterpolation, colorInterpolationFilters, colorProfile,
+    colorRendering, fill, fillOpacity, fillRule, markerEnd, markerMid, markerStart, shapeRendering, stroke, strokeDashArray,
+    strokeDashOffset, strokeLineCap, strokeLineJoin, strokeMiterLimit, strokeOpacity, strokeWidth, alignmentBaseline, baselineShift,
+    dominantBaseline, glyphOrientationHorizontal, glyphOrientationVertical, kerning, textAnchor)
 
   lazy val values: NonEmptyVector[Attr] =
     Vector[Attr](all, unicodeBidi, direction) ++: valuesForAllAttr
@@ -2959,6 +2963,257 @@ object Attrs {
    */
   final val transition = Attr.alias("transition", Transform keys CanIUse.transitions)(_(
     transitionProperty, transitionDuration, transitionTimingFunction, transitionDelay))
+
+  /*
+      SVG Attributes
+   */
+  /**
+    * The clip-rule attribute only applies to graphics elements that are contained within a <clippath> element. The clip-rule attribute basically works as the fill-rule attribute, except that it applies to <clippath> definitions.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/clip-rule">MDN</a>
+    */
+  final val clipRule = Attr.real("clip-rule")
+
+  /**
+    * The enable-background is only applicable to container elements and specifies how the SVG user agents manages the accumulation of the background image.
+    *
+    * @see <a href="http://www.w3.org/TR/SVG/filters.html#EnableBackgroundProperty">w3.org</a>
+    */
+  final val enableBackground = Attr.real("enable-background")
+
+  /**
+    * The flood-color attribute indicates what color to use to flood the current filter primitive subregion defined through the <feflood> element. The keyword currentColor and ICC colors can be specified in the same manner as within a <paint> specification for the fill and stroke attributes.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/flood-color">MDN</a>
+    */
+  object floodColor extends TypedAttr_Color {
+    override val attr = Attr.real("flood-color")
+  }
+
+  /**
+    * The flood-opacity attribute indicates the opacity value to use across the current filter primitive subregion defined through the <feflood> element.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/flood-opacity">MDN</a>
+    */
+  object floodOpacity extends TypedAttrT1[Number] {
+    override val attr = Attr.real("flood-opacity")
+  }
+
+  /**
+    * The lighting-color attribute defines the color of the light source for filter primitives elements <fediffuselighting> and <fespecularlighting>.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/lighting-color">MDN</a>
+    */
+  object lightingColor extends TypedAttr_Color {
+    override val attr = Attr.real("lighting-color")
+  }
+
+  /**
+    * The stop-color attribute indicates what color to use at that gradient stop. The keyword currentColor and ICC colors can be specified in the same manner as within a <paint> specification for the fill and stroke attributes.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stop-color">MDN</a>
+    */
+  object stopColor extends TypedAttr_Color {
+    override val attr = Attr.real("stop-color")
+  }
+
+  /**
+    * The stop-opacity attribute defines the opacity of a given gradient stop.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stop-opacity">MDN</a>
+    */
+  object stopOpacity extends TypedAttrT1[Number] {
+    override val attr = Attr.real("stop-opacity")
+  }
+
+  /**
+    * The color-interpolation attribute specifies the color space for gradient interpolations, color animations, and alpha compositing.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-interpolation">MDN</a>
+    */
+  final val colorInterpolation = Attr.real("color-interpolation")
+
+  /**
+    * The color-interpolation-filters attribute specifies the color space for imaging operations performed via filter effects.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-interpolation-filters">MDN</a>
+    */
+  final val colorInterpolationFilters = Attr.real("color-interpolation-filters")
+
+  /**
+    * The color-profile attribute is used to define which color profile a raster image included through the <image> element should use.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-profile">MDN</a>
+    */
+  final val colorProfile = Attr.real("color-profile")
+
+  /**
+    * The color-rendering attribute provides a hint to the SVG user agent about how to optimize its color interpolation and compositing operations.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/color-rendering">MDN</a>
+    */
+  final val colorRendering = Attr.real("color-rendering")
+
+  /**
+    * The fill attribute can be used to maintain the value of an animation after the active duration of an animation element ends.
+    * For shapes and text, the fill attribute is a presentation attribute that define the color of the interior of the given graphical element.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill">MDN</a>
+    */
+  final val fill = Attr.real("fill")
+
+  /**
+    * This attribute specifies the opacity of the color or the content the current object is filled with.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-opacity">MDN</a>
+    */
+  object fillOpacity extends TypedAttrT1[Number] {
+    override val attr = Attr.real("fill-opacity")
+  }
+
+  /**
+    * The fill-rule attribute indicates the algorithm which is to be used to determine what side of a path is inside the shape.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule">MDN</a>
+    */
+  final val fillRule = Attr.real("fill-rule")
+
+  /**
+    * The marker-end defines the arrowhead or polymarker that will be drawn at the final vertex of the given <path> element or basic shape.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/marker-end">MDN</a>
+    */
+  final val markerEnd = Attr.real("marker-end")
+
+  /**
+    * The marker-mid defines the arrowhead or polymarker that shall be drawn at every vertex other than the first and last vertex of the given <path> element or basic shape.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/marker-mid">MDN</a>
+    */
+  final val markerMid = Attr.real("marker-mid")
+
+  /**
+    * The marker-start attribute defines the arrowhead or polymarker that will be drawn at the first vertex of the given <path> element or basic shape.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/marker-start">MDN</a>
+    */
+  final val markerStart = Attr.real("marker-start")
+
+  /**
+    * The creator of SVG content might want to provide a hint about what tradeoffs to make as the browser renders <path> element or basic shapes. The shape-rendering attribute provides these hints.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering">MDN</a>
+    */
+  final val shapeRendering = Attr.real("shape-rendering")
+
+  /**
+    * The stroke attribute defines the color of the outline on a given graphical element. The default value for the stroke attribute is none.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke">MDN</a>
+    */
+  object stroke extends TypedAttr_Color {
+    override val attr = Attr.real("stroke")
+  }
+
+  /**
+    * The stroke-dasharray attribute controls the pattern of dashes and gaps used to stroke paths.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray">MDN</a>
+    */
+  final val strokeDashArray = Attr.real("stroke-dasharray")
+
+  /**
+    * The stroke-dashoffset attribute specifies the distance into the dash pattern to start the dash.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dashoffset">MDN</a>
+    */
+  final val strokeDashOffset = Attr.real("stroke-dashoffset")
+
+  /**
+    * The stroke-linecap attribute specifies the shape to be used at the end of open subpaths when they are stroked.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap">MDN</a>
+    */
+  final val strokeLineCap = Attr.real("stroke-linecap")
+
+  /**
+    * The stroke-linejoin attribute specifies the shape to be used at the corners of paths or basic shapes when they are stroked.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linejoin">MDN</a>
+    */
+  final val strokeLineJoin = Attr.real("stroke-linejoin")
+
+  /**
+    * The stroke-miterlimit imposes a limit on the ratio of the miter length to the stroke-width.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-miterlimit">MDN</a>
+    */
+  final val strokeMiterLimit = Attr.real("stroke-miterlimit")
+
+  /**
+    * The stroke-opacity attribute specifies the opacity of the outline on the current object. Its default value is 1.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-opacity">MDN</a>
+    */
+  object strokeOpacity extends TypedAttrT1[Number] {
+    override val attr = Attr.real("stroke-opacity")
+  }
+
+  /**
+    * The stroke-width attribute specifies the width of the outline on the current object.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-width">MDN</a>
+    */
+  final val strokeWidth = Attr.real("stroke-width")
+
+  /**
+    * The alignment-baseline attribute specifies how an object is aligned with respect to its parent.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/alignment-baseline">MDN</a>
+    */
+  final val alignmentBaseline = Attr.real("alignment-baseline")
+
+  /**
+    * The baseline-shift attribute allows repositioning of the dominant-baseline relative to the dominant-baseline of the parent text content element.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/baseline-shift">MDN</a>
+    */
+  final val baselineShift = Attr.real("baseline-shift")
+
+  /**
+    * The dominant-baseline attribute is used to determine or re-determine a scaled-baseline-table.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/dominant-baseline">MDN</a>
+    */
+  final val dominantBaseline = Attr.real("dominant-baseline")
+
+  /**
+    * This property is applied only to text written in a horizontal ‘writing-mode’.
+    *
+    * @see <a href="http://www.w3.org/TR/SVG/text.html#GlyphOrientationHorizontalProperty">w3.org</a>
+    */
+  final val glyphOrientationHorizontal = Attr.real("glyph-orientation-horizontal")
+
+  /**
+    * This property is applied only to text written in a vertical ‘writing-mode’.
+    *
+    * @see <a href="http://www.w3.org/TR/SVG/text.html#GlyphOrientationVerticalProperty">w3.org</a>
+    */
+  final val glyphOrientationVertical = Attr.real("glyph-orientation-vertical")
+
+  /**
+    * The kerning attribute indicates whether the browser should adjust inter-glyph spacing based on kerning tables
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/kerning">MDN</a>
+    */
+  final val kerning = Attr.real("kerning")
+
+  /**
+    * The text-anchor attribute is used to align (start-, middle- or end-alignment) a string of text relative to a given point.
+    *
+    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor">MDN</a>
+    */
+  final val textAnchor = Attr.real("text-anchor")
 
 //  /**
 //   * xxxxxxxx
